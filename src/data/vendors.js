@@ -1,7 +1,7 @@
 // This acts as a temporary "database"
 let vendors = [
-  { id: 1, name: "ABC Traders", email: "abc@gmail.com", phone: "9876543210", contactPersons: ["John Doe"] },
-  { id: 2, name: "XYZ Supplies", email: "xyz@gmail.com", phone: "9123456780", contactPersons: ["Jane Smith"] },
+  { id: 1, name: "vendor", email: "vendor@gmail.com", phone: "98888888810", contactPersons: ["Suneer"] },
+  { id: 2, name: "Supplies", email: "abc@gmail.com", phone: "966666666660", contactPersons: ["Jasheel"] },
 ];
 
 export const getVendors = () => vendors;
