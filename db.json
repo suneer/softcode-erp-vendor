@@ -1,0 +1,40 @@
+{
+  "vendors": [
+    {
+      "id": "1",
+      "name": "ABC Traders",
+      "email": "abc@gmail.com",
+      "phone": "9876543210",
+      "contactPersons": [
+        "John Doe"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "XYZ Supplies",
+      "email": "xyz@gmail.com",
+      "phone": "9123456780",
+      "contactPersons": [
+        "Jane Smith"
+      ]
+    },
+    {
+      "id": "ef7e",
+      "name": "Suneer S",
+      "email": "suneer@gmail.com",
+      "phone": "9633646260",
+      "contactPersons": [
+        "sheheer"
+      ]
+    },
+    {
+      "id": "57ab",
+      "name": "ehaan",
+      "email": "ehaan@gmail.com",
+      "phone": "677767",
+      "contactPersons": [
+        "raeha"
+      ]
+    }
+  ]
+}
