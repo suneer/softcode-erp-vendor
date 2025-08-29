@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { addVendor, updateVendor, getVendorById } from "../data/vendors";
 
 export default function VendorForm() {
   const { id } = useParams();
@@ -10,14 +11,27 @@ export default function VendorForm() {
 
   useEffect(() => {
     if (isEdit) {
-      fetch(`${import.meta.env.VITE_API_URL}/vendors/${id}`)
-        .then(res => res.json())
-        .then(data => setVendor(data));
+      const existingVendor = getVendorById(Number(id));
+      if (existingVendor) setVendor(existingVendor);
     }
   }, [id, isEdit]);
 
   const handleChange = (e) => {
     setVendor({ ...vendor, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isEdit) {
+      updateVendor(Number(id), vendor);
+    } else {
+      addVendor(vendor);
+    }
+    navigate("/"); // Go back to list
+  };
+
+  const addContactPerson = () => {
+    setVendor({ ...vendor, contactPersons: [...vendor.contactPersons, ""] });
   };
 
   const handleContactChange = (index, value) => {
@@ -26,34 +40,10 @@ export default function VendorForm() {
     setVendor({ ...vendor, contactPersons: updated });
   };
 
-  const addContactPerson = () => {
-    setVendor({ ...vendor, contactPersons: [...vendor.contactPersons, ""] });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const url = isEdit
-      ? `${import.meta.env.VITE_API_URL}/vendors/${id}`
-      : `${import.meta.env.VITE_API_URL}/vendors`;
-    const method = isEdit ? "PUT" : "POST";
-
-    const res = await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(vendor),
-    });
-
-    if (!res.ok) {
-      alert("Failed to save vendor");
-      return;
-    }
-
-    navigate("/");
-  };
-
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">{isEdit ? "Edit Vendor" : "Add Vendor"}</h1>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <input type="text" name="name" value={vendor.name} onChange={handleChange} placeholder="Vendor Name" className="border p-2 w-full" required />
         <input type="email" name="email" value={vendor.email} onChange={handleChange} placeholder="Email" className="border p-2 w-full" required />

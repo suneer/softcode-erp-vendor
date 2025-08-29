@@ -1,17 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { getVendors } from "../data/vendors";
 
 export default function VendorsList() {
   const [vendors, setVendors] = useState([]);
 
-  const fetchVendors = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/vendors`);
-    const data = await res.json();
-    setVendors(data);
-  };
-
   useEffect(() => {
-    fetchVendors();
+    setVendors(getVendors());
   }, []);
 
   return (
@@ -38,7 +33,15 @@ export default function VendorsList() {
               <td className="p-2 border">{vendor.email}</td>
               <td className="p-2 border">{vendor.phone}</td>
               <td className="p-2 border">
-                {vendor.contactPersons && vendor.contactPersons.join(", ")}
+                {vendor.contactPersons && vendor.contactPersons.length > 0 ? (
+                  <ul className="list-disc list-inside">
+                    {vendor.contactPersons.map((cp, i) => (
+                      <li key={i}>{cp}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <span className="text-gray-500 italic">No contacts</span>
+                )}
               </td>
               <td className="p-2 border">
                 <Link to={`/edit/${vendor.id}`} className="text-blue-600">
